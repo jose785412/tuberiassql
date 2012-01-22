@@ -186,6 +186,29 @@ Perfecta aplicación para mover datos entre diferentes entornos.</description>
 							</resources>              
 						</configuration>   					        
 				  	</execution>  	
+				  	<!-- 
+						Copia los ficheros de mensajes de la aplicacion						
+					 -->				
+					<execution>
+						<id>copy-resources-mensajes</id>
+						<phase>validate</phase>
+						<goals>
+					  		<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+					  		<outputDirectory>${basedir}/target/classes/mensajes</outputDirectory>
+						  	<resources>          
+								<resource>
+							  		<directory>src/main/resources/mensajes</directory>
+							  		<filtering>true</filtering>
+							  		<includes>
+							  			<include>**/*.properties</include>	
+							  			<include>**/*.txt</include>					  			
+							  		</includes>
+								</resource>								
+							</resources>              
+						</configuration>   					        
+				  	</execution>
 				</executions>
 			</plugin>	
 			<!-- 
