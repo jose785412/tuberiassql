@@ -9,5 +9,6 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
 	<import resource="spring-tuberias-resources.xml"/>
-
+	<import resource="spring-tuberias-controller.xml"/>
+	
 </beans>

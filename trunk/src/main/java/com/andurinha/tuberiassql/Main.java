@@ -19,15 +19,14 @@
 package com.andurinha.tuberiassql;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.andurinha.tuberiassql.controlador.ConsoleController;
 
 /**
  * 
@@ -54,7 +53,11 @@ public class Main {
 
 	private static final String PUNTO_ENTRADA_SPRING = "spring/spring-tuberias.xml";
 	private static final String MSG_BIENVENIDA = "/mensajes/bienvenida.txt";
+	private static final String BEAN_CONTROLLER = "controller";
+	
 	private static ApplicationContext context;
+	
+	private static ConsoleController controller;
 	
 	/**
 		<PRE>
@@ -86,7 +89,10 @@ public class Main {
 	public static void main(String[] args) {
 		Main.mostrarMsgBienVenida();
 		Main.cargarContextoSpring();
-
+		controller = (ConsoleController) context.getBean(BEAN_CONTROLLER, ConsoleController.class);
+		if (controller != null){
+			controller.ejecutaComandos(args);
+		}		
 	}
 	
 	/**

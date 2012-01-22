@@ -9,6 +9,7 @@
 	<configs>
 		<config>src/main/resources/spring/spring-tuberias.xml</config>
 		<config>src/main/resources/spring/spring-tuberias-resources.xml</config>
+		<config>src/main/resources/spring/spring-tuberias-controller.xml</config>
 	</configs>
 	<configSets>
 	</configSets>
