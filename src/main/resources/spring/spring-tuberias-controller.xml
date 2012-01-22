@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<bean id="controller" class="com.andurinha.tuberiassql.controlador.impl.ConsoleControllerImpl" lazy-init="true">
+		<property name="comandos">
+			<list><!--
+				<ref bean="cmdAyuda"/>
+				--><ref bean="cmdConfFile"/>
+				<!--<ref bean="cmdInputScript"/>
+				<ref bean="cmdOutputScript"/>
+			--></list>
+		</property>
+	</bean>
+
+	<bean id="cmdAyuda" class="com.andurinha.tuberiassql.controlador.impl.CmdAyuda" lazy-init="true">
+		<property name="consoleParameter">
+		  <bean class="com.andurinha.tuberiassql.controlador.impl.ConsoleParameterImpl" lazy-init="true">
+		  	<property name="conf">
+		  		<bean class="com.andurinha.tuberiassql.model.controller.ConsoleParameterConf" lazy-init="true">
+					<property name="prefijo" value="h"></property>
+					<property name="prefijoExtendido" value="help"></property>
+					<property name="numParametros" value="0"></property>
+				</bean>
+		  	</property>		   		  	
+		  </bean>				
+		</property>		
+	</bean>
+
+	<bean id="cmdConfFile" class="com.andurinha.tuberiassql.controlador.impl.CmdConfFile" lazy-init="true">
+		<property name="consoleParameter">
+		 <bean class="com.andurinha.tuberiassql.controlador.impl.ConsoleParameterImpl" lazy-init="true">
+		  <property name="conf">
+			 <bean class="com.andurinha.tuberiassql.model.controller.ConsoleParameterConf" lazy-init="true">
+				<property name="prefijo" value="c"></property>
+				<property name="prefijoExtendido" value="confFile"></property>
+				<property name="numParametros" value="1"></property>
+			 </bean>
+			</property>		  	
+		  </bean>
+		</property>		
+	</bean>
+	
+	<bean id="cmdInputScript" class="com.andurinha.tuberiassql.controlador.impl.CmdInputScript" lazy-init="true">
+		<property name="consoleParameter">
+		 <bean class="com.andurinha.tuberiassql.controlador.impl.ConsoleParameterImpl" lazy-init="true">
+		   <property name="conf">
+			 <bean class="com.andurinha.tuberiassql.model.controller.ConsoleParameterConf" lazy-init="true">
+				<property name="prefijo" value="i"></property>
+				<property name="prefijoExtendido" value="inputScript"></property>
+				<property name="numParametros" value="1"></property>
+			 </bean>
+			</property>		  	
+		  </bean>	
+		</property>			
+	</bean>
+	
+	<bean id="cmdOutputScript" class="com.andurinha.tuberiassql.controlador.impl.CmdOuputScript" lazy-init="true">
+		<property name="consoleParameter">
+		 <bean class="com.andurinha.tuberiassql.controlador.impl.ConsoleParameterImpl" lazy-init="true">
+		   <property name="conf">
+			 <bean class="com.andurinha.tuberiassql.model.controller.ConsoleParameterConf" lazy-init="true">
+				<property name="prefijo" value="o"></property>
+				<property name="prefijoExtendido" value="ouputScript"></property>
+				<property name="numParametros" value="1"></property>
+			 </bean>
+			</property>		  	
+		  </bean>	
+		</property>		
+	</bean>
+
+</beans>
