@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+	<!-- 
+	
+		Carga el fichero de properties de la aplicacion
+	
+	 -->
+	
+	
+	<bean id="properties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" lazy-init="true">
+		<property name="locations">
+			<list>
+  				<value>file:configuracion/configuracion.properties</value>  			 				
+  			</list>
+  		</property>
+  		<property name="ignoreUnresolvablePlaceholders" value="true"></property>
+    </bean>
+
+	<!-- 
+	
+		Configuracion del datasource de acceso a la base de datos de origen
+	
+	 -->
+
+	<bean id="dataSourceOrigen" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" lazy-init="true">
+        <property name="driverClassName" value="${bbdd.origen.driver.class.name}"/>
+        <property name="url" value="${bbdd.origen.jdbc.url}"/>
+        <property name="username" value="${bbdd.origen.usuario}"/>
+        <property name="password" value="${bbdd.origen.password}"/>
+        <property name="maxActive" value="${bbdd.origen.maxActive}"/>
+        <property name="maxWait" value="${bbdd.origen.maxIddle}"/>
+        <property name="maxIdle" value="${bbdd.origen.maxWait}"></property>
+        <property name="removeAbandoned" value="${bbdd.origen.remove.abandoned}"></property>
+        <property name="removeAbandonedTimeout" value="${bbdd.origen.remove.abandoned.timeout}"></property>
+        <property name="validationQuery" value="${bbdd.origen.validation.query}"></property>
+        <property name="poolPreparedStatements" value="${bbdd.origen.pool.prepared.statements}"/>
+     </bean>	
+    
+    <!-- 
+	
+		Configuracion del datasource de acceso a la base de datos de destino
+	
+	 -->
+     
+     <bean id="dataSourceModelos" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" lazy-init="true">
+        <property name="driverClassName" value="${bbdd.destino.driver.class.name}"/>
+        <property name="url" value="${bbdd.destino.jdbc.url}"/>
+        <property name="username" value="${bbdd.destino.usuario}"/>
+        <property name="password" value="${bbdd.destino.password}"/>
+        <property name="maxActive" value="${bbdd.destino.maxActive}"/>
+        <property name="maxWait" value="${bbdd.destino.maxWait}"/>
+        <property name="maxIdle" value="${bbdd.destino.maxIddle}"></property>
+        <property name="removeAbandoned" value="${bbdd.destino.remove.abandoned}"></property>
+        <property name="removeAbandonedTimeout" value="${bbdd.destino.remove.abandoned.timeout}"></property>
+        <property name="validationQuery" value="${bbdd.destino.validation.query}"></property>
+        <property name="poolPreparedStatements" value="${bbdd.destino.pool.prepared.statements}"/>
+     </bean>	
+     
+	<!-- 
+	
+		Definicion de los nombres de los scripts a ejecutar por defecto
+	
+	 -->
+	
+	<bean id="scriptsConf" class="com.andurinha.tuberiassql.model.configuracion.ScriptsConf" lazy-init="true">
+		<property name="origen" value="${script.origen.nombre}"/>
+		<property name="destino" value="${script.destino.nombre}"/>
+	</bean>
+	
+	<!-- 
+		Definicion de la configuracion del buffer
+	 -->
+	 
+	 <bean id="bufferConf" class="com.andurinha.tuberiassql.model.configuracion.BufferConf" lazy-init="true">
+	 	<property name="tamanho" value="${transfer.buffer.size.num.registros}"/>
+	 </bean>
+
+	<!-- 
+		Definicion del locale de la aplicacion
+	 -->
+
+	<bean id="locale" class="java.util.Locale" lazy-init="true" >
+		<constructor-arg index="0" value="${tuberias.locale.language}" />
+		<constructor-arg index="1" value="${tuberias.locale.country}"/>
+	</bean>
+
+	<!-- 
+		Definicion del bean de configuracion de la aplicacion
+	 -->
+	 <bean id="configuracion" class="com.andurinha.tuberiassql.model.configuracion.Configuracion" lazy-init="true" >
+	 	<property name="buffer"> <ref bean="bufferConf"/></property>
+	 	<property name="scripts"><ref bean="scriptsConf"/></property>
+	 	<property name="locale"> <ref bean="locale"/></property>
+	 </bean>
+
+</beans>
