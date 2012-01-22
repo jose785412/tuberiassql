@@ -16,62 +16,50 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  
  **/
-package com.andurinha.tuberiassql;
-
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+package com.andurinha.tuberiassql.model;
 
 /**
- * 
 	<PRE>
 	Proyecto    : Tuberias SQL
 	Codigo	    : tuberiassql 
 	ID_TAREA    : Issue 1: Crear Estructura del Proyecto
-	Clase       : Main
+	Clase       : ModelBase
 	Descripcion :
 
-	Punto de entrada de la aplicacion.
-	Carga configuracion.
-	Carga contexto de Spring.
-	Parsea parametros de entrada.
+	Define los metodos comunes que han de implementar todos
+	los beans del modelo de esta aplicacion
 
 	</PRE>
 	@date       : 22/01/2012
 	@author     : bris2376@gmail.com
 
 
-*
- */
-public class Main {
+ **/
+public interface ModelBase {
 
-	private static final String PUNTO_ENTRADA_SPRING = "spring/spring-tuberias.xml";
-	private static ApplicationContext context;
-	
 	/**
+	 * 
 		<PRE>
 		Proyecto    : Tuberias SQL
 		Codigo	    : tuberiassql 
 		ID_TAREA    : Issue 1: Crear Estructura del Proyecto
-		Metodo      : main
+		Metodo      : isBeanComplete
 		Descripcion :
 	
-		Punto de entrada de la aplicacion
+		Nos indica con un booleano si el bean de datos 
+		esta correctamente rellenado. Y no tiene ninguna
+		propiedad a null
 	
-	    Fecha       : 22/01/2012
-		Autor       : bris2376@gmail.com
 		</PRE>
+		@date       : 22/01/2012
+		@author     : bris2376@gmail.com
 	
-	void
-	@param args
+	@return
+	Boolean
 	
-	 **/
-	public static void main(String[] args) {
-		Main.cargarContextoSpring();
-
-	}
+	*
+	 */
 	
-	private static void cargarContextoSpring(){
-		Main.context = new ClassPathXmlApplicationContext(PUNTO_ENTRADA_SPRING);
-	}
-
+	Boolean isBeanComplete();
+	
 }
