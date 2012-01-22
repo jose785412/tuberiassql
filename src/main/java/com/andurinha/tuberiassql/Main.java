@@ -18,6 +18,14 @@
  **/
 package com.andurinha.tuberiassql;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -45,6 +53,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class Main {
 
 	private static final String PUNTO_ENTRADA_SPRING = "spring/spring-tuberias.xml";
+	private static final String MSG_BIENVENIDA = "/mensajes/bienvenida.txt";
 	private static ApplicationContext context;
 	
 	/**
@@ -59,6 +68,15 @@ public class Main {
 	
 	    Fecha       : 22/01/2012
 		Autor       : bris2376@gmail.com
+		
+		ID_TAREA	: Creación del mensaje de Bienvenida de la aplicacion
+		Descripcion :
+		
+		Mostrar el mensaje de bienvenida de la aplicacion
+		
+		Fecha		: 22/01/2012
+		Autor		: bris2376@gmail.com
+		
 		</PRE>
 	
 	void
@@ -66,12 +84,80 @@ public class Main {
 	
 	 **/
 	public static void main(String[] args) {
+		Main.mostrarMsgBienVenida();
 		Main.cargarContextoSpring();
 
 	}
 	
+	/**
+	 * 
+		<PRE>
+		Proyecto    : Tuberias SQL
+		Codigo	    : tuberiassql 
+		ID_TAREA    : Issue 1: Crear Estructura del Proyecto
+		Metodo      : cargarContextoSpring
+		Descripcion :
+	
+		Carga el contexto de spring en la aplicacion
+	
+		</PRE>
+		@date       : 22/01/2012
+		@author     : bris2376@gmail.com
+	
+	void
+	
+	*
+	*/
+	
 	private static void cargarContextoSpring(){
 		Main.context = new ClassPathXmlApplicationContext(PUNTO_ENTRADA_SPRING);
 	}
+
+	/**
+	 * 
+		<PRE>
+		Proyecto    : Tuberias SQL
+		Codigo	    : tuberiassql 
+		ID_TAREA    : Issue 2: Creación del mensaje de Bienvenida de la aplicacion
+		Metodo      : mostrarMsgBienVenida
+		Descripcion :
+	
+		Escupe por la salida estandard el mensaje que esta contenido en el 
+		fichrero de bienvenida definido en {@link Main#MSG_BIENVENIDA}
+	
+		</PRE>
+		@date       : 22/01/2012
+		@author     : bris2376@gmail.com
+	
+	void
+	
+	*
+	 */
+	
+	private static void mostrarMsgBienVenida(){
+		try {
+			final InputStream is = String.class.getResourceAsStream(MSG_BIENVENIDA);
+			final BufferedReader buffer = new BufferedReader(new InputStreamReader(is));
+			Boolean centinela = Boolean.TRUE;
+			while (centinela){
+				String linea;
+				linea = buffer.readLine();
+				if (linea == null){
+					centinela = Boolean.FALSE;
+				} else {
+					System.out.println(linea);
+				}
+			}
+		} catch (IOException e) {					
+				e.printStackTrace();
+		}		
+		
+	}
+	
+	public static ApplicationContext getContext() {
+		return context;
+	}
+	
+	
 
 }
